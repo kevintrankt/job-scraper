@@ -9,7 +9,7 @@ const cheerio = require('cheerio');
 const fs = require('fs');
 
 const options = {
-  uri: `https://www.indeed.com/jobs?q=engineer&l=95112&jt=internship&sort=date`,
+  uri: `https://www.indeed.com/jobs?q=engineer&l=95112&jt=internship&explvl=entry_level&sort=date`,
   transform: function(body) {
     return cheerio.load(body);
   }
@@ -43,9 +43,11 @@ rp(options)
   });
 
 const writeToHtml = () => {
-  let htmlString = '';
+  let htmlString = '<head><title></title></head>';
   for (let job of jobs) {
-    htmlString += `<a href='${job.url}'>${job.title} - ${job.company}</a><br>`;
+    htmlString += `<a href='${job.url}' target='_blank'><strong>${
+      job.title
+    }</strong> - ${job.company}</a><br>`;
   }
   fs.writeFileSync('output.html', htmlString);
   console.log('Data written to output.html');

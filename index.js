@@ -1,5 +1,12 @@
+/**
+ * @file job-scraper
+ * @author Kevin Tran <kevin.tran.kt@gmail.com>
+ * @version 1.0.0
+ */
+
 const rp = require('request-promise');
 const cheerio = require('cheerio');
+const fs = require('fs');
 
 const options = {
   uri: `https://www.indeed.com/jobs?q=engineer&l=95112&jt=internship&sort=date`,
@@ -29,8 +36,13 @@ rp(options)
 
       jobs.push(job);
     });
+    writeToHtml();
     console.log(jobs);
   })
   .catch(err => {
     console.log(err);
   });
+
+const writeToHtml = () => {
+  fs.writeFileSync('output.html', JSON.stringify(jobs, null, 2));
+};

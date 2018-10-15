@@ -43,7 +43,8 @@ rp(options)
   });
 
 const writeToHtml = () => {
-  let htmlString = '<head><title></title></head>';
+  let htmlString =
+    '<head><title>jobs</title><style>a{color:black; text-decoration:none;}</style></head>';
   for (let job of jobs) {
     htmlString += `<a href='${job.url}' target='_blank'><strong>${
       job.title

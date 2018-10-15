@@ -37,12 +37,16 @@ rp(options)
       jobs.push(job);
     });
     writeToHtml();
-    console.log(jobs);
   })
   .catch(err => {
     console.log(err);
   });
 
 const writeToHtml = () => {
-  fs.writeFileSync('output.html', JSON.stringify(jobs, null, 2));
+  let htmlString = '';
+  for (let job of jobs) {
+    htmlString += `<a href='${job.url}'>${job.title} - ${job.company}</a><br>`;
+  }
+  fs.writeFileSync('output.html', htmlString);
+  console.log('Data written to output.html');
 };
